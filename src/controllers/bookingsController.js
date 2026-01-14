@@ -42,7 +42,13 @@ const createBooking = async (req, res) => {
     await ride.save();
 
     await booking.populate([
-      { path: 'ride', populate: { path: 'driver', select: 'name email phone rating' } },
+      {
+        path: 'ride',
+        populate: [
+          { path: 'driver', select: 'name email phone rating' },
+          { path: 'car', select: 'company model carNumber seatsAvailable color' }
+        ]
+      },
       { path: 'passenger', select: 'name email phone' }
     ]);
 
@@ -58,7 +64,10 @@ const getMyBookings = async (req, res) => {
     const bookings = await Booking.find({ passenger: req.user._id })
       .populate({
         path: 'ride',
-        populate: { path: 'driver', select: 'name email phone rating' }
+        populate: [
+          { path: 'driver', select: 'name email phone rating' },
+          { path: 'car', select: 'company model carNumber seatsAvailable color' }
+        ]
       })
       .sort({ createdAt: -1 });
 

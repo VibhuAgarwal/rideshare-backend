@@ -6,6 +6,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const ridesRoutes = require('./routes/ridesRoutes');
 const bookingsRoutes = require('./routes/bookingsRoutes');
+const carsRoutes = require('./routes/carsRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
@@ -19,6 +20,7 @@ app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/rides', ridesRoutes);
 app.use('/api/bookings', bookingsRoutes);
+app.use('/api/cars', carsRoutes);
 
 // ============ FALLBACKS ============
 app.use('/api', (req, res) => {
